@@ -1,7 +1,9 @@
 package backend
 
 import (
+	"boardProject/backend/handlers"
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -14,8 +16,14 @@ func Application() {
 	r := gin.Default()
 	var PORT = 8000
 
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete},
+		AllowHeaders: []string{"Accept", "Accept-Language", "Content-Language", "Origin", "Content-Type", "Authorization"},
+	}))
+
 	// add handlers
-	r.Use()
+	r.GET("api/profiles", handlers.GetProfilesHandler)
 
 	server := &http.Server{
 		Handler:      r,

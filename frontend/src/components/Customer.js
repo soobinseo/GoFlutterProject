@@ -12,7 +12,7 @@ class Customer extends React.Component {
                 <TableCell>{this.props.job}</TableCell>
                 <TableCell>{this.props.gender}</TableCell>
                 <TableCell>{this.props.age}</TableCell>
-                <TableCell>{this.props.age}</TableCell>
+
             </TableRow>
         )
     }

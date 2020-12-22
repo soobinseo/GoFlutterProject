@@ -9,36 +9,29 @@ import TableCell from '@material-ui/core/TableCell';
 
 
 
-const customers = [
-    {
-        "name": "홍길동",
-        "image": "http://placeimg.com/64/64/1",
-        "id":1,
-        "age":29,
-        "job":"개발자",
-        "gender":"남자"
-    },
-    {
-        "name": "홍길동",
-        "image": "http://placeimg.com/64/64/2",
-        "id":1,
-        "age":29,
-        "job":"개발자",
-        "gender":"남자"
-    },
-    {
-        "name": "홍길동",
-        "image": "http://placeimg.com/64/64/3",
-        "id":1,
-        "age":29,
-        "job":"개발자",
-        "gender":"남자"
-    },
 
-];
 
 class App extends React.Component {
+
+    state = {
+        customers: ""
+    };
+
+    componentDidMount() {
+        this.fetchData()
+            .then(res => this.setState({customers: res}))
+    }
+
+    fetchData = async ()=> {
+        const response = await fetch('/api/profiles');
+        console.log(response);
+        const body = response.json();
+        console.log(body);
+        return body
+    };
+
     render() {
+        const {classes} = this.props;
         return (
             <div>
             <Table>
@@ -46,14 +39,16 @@ class App extends React.Component {
 
                 </TableHead>
                 <TableBody>
-                    {customers.map(c => <Customer
+                    {this.state.customers ? this.state.customers.map(c =>
+
+                        <Customer key={c.id}
                         id={c.id}
                         name={c.name}
                         image={c.image}
                         job={c.job}
                         gender={c.gender}
                         age={c.age}/>
-                    )}
+                    ) : ""}
                 </TableBody>
             </Table>
             </div>
