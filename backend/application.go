@@ -23,7 +23,8 @@ func Application() {
 	}))
 
 	// add handlers
-	r.GET("api/profiles", handlers.GetProfilesHandler)
+	r.GET("api/profile", handlers.GetProfilesHandler)
+	r.POST("api/profile", handlers.PostProfileHandler)
 
 	server := &http.Server{
 		Handler:      r,

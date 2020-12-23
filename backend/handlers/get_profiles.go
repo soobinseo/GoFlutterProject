@@ -10,14 +10,14 @@ func GetProfilesHandler (c *gin.Context) {
 
 	customers := []models.Profile{
 
-			{
-				Name:   "홍길동",
-				Image:  "http://placeimg.com/64/64/1",
-				Id:     1,
-				Age:    "29",
-				Job:    "개발자",
-				Gender: "남자",
-			},
+		{
+			Name:   "홍길동",
+			Image:  "http://placeimg.com/64/64/1",
+			Id:     1,
+			Age:    "29",
+			Job:    "개발자",
+			Gender: "남자",
+		},
 		{
 			Name:   "홍길동",
 			Image:  "http://placeimg.com/64/64/2",
@@ -34,8 +34,6 @@ func GetProfilesHandler (c *gin.Context) {
 			Job:    "개발자",
 			Gender: "남자",
 		},
-
-
 	}
 	c.JSON(http.StatusOK, customers)
 
