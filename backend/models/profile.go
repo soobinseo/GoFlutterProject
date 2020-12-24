@@ -1,11 +1,12 @@
 package models
 
+import "gorm.io/gorm"
 
 type Profile struct {
-	Id			int `json:"id"`
+	gorm.Model
 	Name         string `json:"name"`
 	Gender         string `json:"gender"`
 	Image         string `json:"image"`
 	Job         string `json:"job"`
-	Age         string `json:"age"`
+	Birthday         string `json:"birthday"`
 }

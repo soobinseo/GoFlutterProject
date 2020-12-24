@@ -1,7 +1,7 @@
 package backend
 
 import (
-	"boardProject/backend/handlers"
+	"github.com/soobinseo/goReactCRUD/backend/handlers"
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"boardProject/backend"
-	"boardProject/backend/db"
+	"github.com/soobinseo/goReactCRUD/backend"
+	"github.com/soobinseo/goReactCRUD/backend/db"
 )
 
 func main() {
@@ -12,7 +12,6 @@ func main() {
 	}
 
 	backend.Application()
-	defer db.DataBase.Close()
 
 
 }
