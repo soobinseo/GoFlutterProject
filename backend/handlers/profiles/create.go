@@ -1,4 +1,4 @@
-package handlers
+package profiles
 
 import (
 	"github.com/soobinseo/goReactCRUD/backend/db"
@@ -10,7 +10,7 @@ import (
 func PostProfileHandler (c *gin.Context) {
 
 	var body models.Profile
-	db.DataBase.AutoMigrate(&models.Profile{})
+	//db.DataBase.AutoMigrate(&models.Profile{})
 
 	if err := c.ShouldBind(&body); err != nil {
 		panic(err)

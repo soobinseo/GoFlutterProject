@@ -1,10 +1,11 @@
 package backend
 
 import (
-	"github.com/soobinseo/goReactCRUD/backend/handlers"
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/soobinseo/goReactCRUD/backend/handlers/profiles"
+	"github.com/soobinseo/goReactCRUD/backend/middlewares"
 	"log"
 	"net/http"
 	"time"
@@ -14,7 +15,7 @@ func Application() {
 
 	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
-	var PORT = 8000
+	var PORT= 8000
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
@@ -23,8 +24,20 @@ func Application() {
 	}))
 
 	// add handlers
-	r.GET("api/profile", handlers.GetProfilesHandler)
-	r.POST("api/profile", handlers.PostProfileHandler)
+
+	r_api := r.Group("api/")
+	r_api.Use(middlewares.ParseParamMiddleware)
+	{
+		r_api.GET("profile", profiles.GetProfilesHandler)
+		r_api.POST("profile", profiles.PostProfileHandler)
+		{
+			r_api.GET("profile/:profileId", profiles.GetProfileByIdHandler)
+			r_api.DELETE("profile/:profileId", profiles.DeleteProfileHandler)
+			r_api.PUT("profile/:profileId", profiles.UpdateProfileHandler)
+		}
+	}
+
+
 
 	server := &http.Server{
 		Handler:      r,
