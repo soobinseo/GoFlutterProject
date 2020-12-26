@@ -29,6 +29,7 @@ func Application() {
 	r_api.Use(middlewares.ParseParamMiddleware)
 	{
 		r_api.GET("profile", profiles.GetProfilesHandler)
+
 		r_api.POST("profile", profiles.PostProfileHandler)
 		{
 			r_api.GET("profile/:profileId", profiles.GetProfileByIdHandler)

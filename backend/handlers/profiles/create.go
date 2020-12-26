@@ -1,13 +1,16 @@
 package profiles
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/soobinseo/goReactCRUD/backend/db"
 	"github.com/soobinseo/goReactCRUD/backend/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func PostProfileHandler (c *gin.Context) {
+
+	// upload data to storage
+	//middlewares.UploadGCSMiddleWare(c)
 
 	var body models.Profile
 	//db.DataBase.AutoMigrate(&models.Profile{})

@@ -23,7 +23,7 @@ class App extends React.Component {
     }
 
     fetchData = async ()=> {
-        const response = await fetch('/api/profiles');
+        const response = await fetch('/api/profile');
         console.log(response);
         const body = response.json();
         console.log(body);
