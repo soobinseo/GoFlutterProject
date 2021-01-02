@@ -5,6 +5,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/soobinseo/goReactCRUD/backend/handlers/profiles"
+	"github.com/soobinseo/goReactCRUD/backend/handlers/users"
 	"github.com/soobinseo/goReactCRUD/backend/middlewares"
 	"log"
 	"net/http"
@@ -36,7 +37,14 @@ func Application() {
 			r_api.DELETE("profile/:profileId", profiles.DeleteProfileHandler)
 			r_api.PUT("profile/:profileId", profiles.UpdateProfileHandler)
 		}
+
+		r_api.POST("signup", users.SignupHandler)
+		r_api.POST("login", users.LoginHandler)
 	}
+
+	r_auth_api := r_api.Group("auth/")
+	r_auth_api.Use(middlewares.AuthJWTMiddleWare)
+	r_auth_api.GET("test", users.TestHandler)
 
 
 
