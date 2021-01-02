@@ -1,1 +1,1 @@
-# GoReactCRUD
+# GoFlutterProject
