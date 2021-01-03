@@ -1,6 +1,8 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type User struct {
 	gorm.Model
@@ -8,4 +10,5 @@ type User struct {
 	Email         string `json:"email" bson:"email" gorm:"uniqueIndex"`
 	Password      string `json:"password" bson:"password"`
 	Posts		  []Post
+	RefreshToken	string `gorm:"uniqueIndex"`
 }

@@ -9,43 +9,28 @@ import (
 
 func AuthJWTMiddleWare(c *gin.Context) {
 
-	token, err := c.Request.Cookie("access-token")
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, err.Error())
-		c.Abort()
-		return
-	}
+	token := c.Request.Header.Get("access-token")
+	tknStr := token
 
-	tknStr := token.Value
 	if tknStr == "" {
-		c.JSON(http.StatusUnauthorized, err.Error())
+		c.JSON(http.StatusUnauthorized, "")
 		c.Abort()
 		return
 	}
 
 	claims := &users.Claims{}
 
-	_, err = jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
+	_, err := jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
 		return users.SECRET_KEY, nil
 	})
 
-	//TODO: expired token 검증
-
-	c.Set("claims", claims)
-
+	// expiration 자동 검증
 	if err != nil {
-		if err == jwt.ErrSignatureInvalid {
-			//TODO: refresh token
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"err": "token has been expired",
-			})
-			c.Abort()
-			return
-		}
-		c.JSON(http.StatusUnauthorized, err.Error())
+		c.JSON(419, err.Error())
 		c.Abort()
 		return
-	} else{
+	} else {
+		c.Set("userId", claims.UserId)
 		c.Next()
 	}
 

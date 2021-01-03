@@ -40,6 +40,7 @@ func Application() {
 
 		r_api.POST("signup", users.SignupHandler)
 		r_api.POST("login", users.LoginHandler)
+		r_api.POST("refresh", users.RefreshHandler)
 	}
 
 	r_auth_api := r_api.Group("auth/")
