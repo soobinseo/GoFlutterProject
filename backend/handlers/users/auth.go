@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/gofrs/uuid"
@@ -56,12 +57,14 @@ func SignupHandler (c *gin.Context) {
 	//middlewares.UploadGCSMiddleWare(c)
 
 	var body models.User
+
 	//db.DataBase.AutoMigrate(&models.User{})
 
 	if err := c.ShouldBind(&body); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
+	fmt.Println(body)
 	gen := uuid.NewGen()
 	refreshToken, err := gen.NewV4()
 	if err != nil {
@@ -111,7 +114,6 @@ func LoginHandler(c *gin.Context) {
 	c.Header("Expires", "-1")
 
 	c.JSON(http.StatusOK, gin.H{
-		"isOK":"1",
 		"access-token": jwtToken,
 		"refresh-token": dbUser.RefreshToken,
 	})
