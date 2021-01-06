@@ -9,6 +9,6 @@ type User struct {
 	Name         string `json:"name" bson:"name"`
 	Email         string `json:"email" bson:"email" gorm:"uniqueIndex"`
 	Password      string `json:"password" bson:"password"`
-	Posts		  []Post
+	Posts		  []*Post `json:"posts" bson:"posts"`
 	RefreshToken	string `gorm:"uniqueIndex"`
 }

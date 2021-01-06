@@ -12,9 +12,13 @@ class UtilProvider extends GetConnect {
     });
   }
 
-
   signUp(body) async {
-    return await post(BASE_URL + 'signup', body);
+    try {
+      final res = await post(BASE_URL + 'signup', body);
+      return res;
+    } on Exception {
+      throw Error();
+    }
   }
 
   login(body) async {
@@ -23,5 +27,8 @@ class UtilProvider extends GetConnect {
 
     final box = GetStorage();
     box.write("access-token", token);
+    return res;
   }
+
+
 }

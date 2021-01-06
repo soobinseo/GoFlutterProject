@@ -19,9 +19,19 @@ class LoginView extends StatelessWidget {
             Form(
                 key: _formKey,
                 child:
-                Column(children: <Widget>[
+                Column(
+                    children: <Widget>[
 
-                  SizedBox(height: 75.0),
+                  SizedBox(height: 50.0),
+
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding: EdgeInsets.only( top: 10, bottom: 10),
+                    child: Text("이메일", style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14
+                    ),),
+                  ),
 
                   Container(
                     decoration: BoxDecoration(
@@ -40,6 +50,16 @@ class LoginView extends StatelessWidget {
                   ),
 
                   SizedBox(height: 16.0),
+
+                      Container(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only( top: 10, bottom: 10),
+                        child: Text("비밀번호", style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14
+                        ),),
+                      ),
+
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(width: 1.0, color: Colors.black26),

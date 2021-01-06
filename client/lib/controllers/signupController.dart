@@ -18,7 +18,7 @@ class SignUpController extends GetxController {
     super.onInit();
   }
 
-  void signUp() {
+  void signUp() async {
     // loading 보여주기 위한 방식
     Get.dialog(Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
@@ -30,14 +30,23 @@ class SignUpController extends GetxController {
     });
 
     try {
-      utilProvider.signUp(body);
+      Response res = await utilProvider.signUp(body);
+      if (res.statusCode == 200) {
+        Response res_login = await utilProvider.login(body);
+        Get.back();
+        Get.offNamed("/home");
+      } else if (res.statusCode == 419){
+        //TODO: 중복된 사용자 토글
+      } else {
+        // TODO: 서버에러 토글
+      }
+
     } catch(e){
       //toggle error
       print(e.error);
     }
 
-    Get.back();
-    Get.offNamed("/login");
+
 
   }
 
