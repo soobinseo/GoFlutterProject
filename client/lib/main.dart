@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:client/router.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() async {
+Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initServices();
+
   runApp(
       GetMaterialApp(
         title: "CloneApp",

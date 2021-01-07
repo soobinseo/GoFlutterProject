@@ -8,6 +8,7 @@ class LoginController extends GetxController {
   TextEditingController emailController;
   TextEditingController passwordController;
   UtilProvider utilProvider;
+  RxBool isValid = false.obs;
 
   @override
   void onInit() {
@@ -16,6 +17,13 @@ class LoginController extends GetxController {
     utilProvider = UtilProvider();
 
     super.onInit();
+  }
+
+  void validUpdate() {
+    print(emailController.text.isNotEmpty);
+    print(passwordController.text.isNotEmpty);
+    isValid.value = emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
+    print(isValid.value);
   }
 
   void apiLogin() async {
@@ -46,6 +54,11 @@ class LoginController extends GetxController {
 
 
 
+
+
+  }
+
+  void validCheck() {
 
   }
 

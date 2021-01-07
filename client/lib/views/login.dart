@@ -8,6 +8,7 @@ class LoginView extends StatelessWidget {
   final LoginController _loginController = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +40,7 @@ class LoginView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7.0)),
                     child: TextFormField(
                       controller: _loginController.emailController,
+                      onChanged: (_) => _loginController.validUpdate(),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -66,6 +68,7 @@ class LoginView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7.0)),
                     child: TextFormField(
                       controller: _loginController.passwordController,
+                      onChanged: (_) => _loginController.validUpdate(),
                       obscureText: true,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -77,27 +80,33 @@ class LoginView extends StatelessWidget {
                   ),
 
                   SizedBox(height: 16.0),
-                  MaterialButton(
-                      color: Colors.deepOrangeAccent,
-//              splashColor: Colors.white,
-                      height: 50,
-                      minWidth: Get.width,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        '로그인',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+
+                  Obx(() {
+                    return MaterialButton(
+
+                        color: _loginController.isValid.value ? Colors.deepOrangeAccent : Colors.transparent,
+                        height: 50,
+                        minWidth: Get.width,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _loginController.apiLogin();
-                        }
-                      })
+                        child: Text(
+                          '로그인',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () =>
+                        (_formKey.currentState.validate())
+                            ? _loginController.apiLogin()
+                            : null
+
+                    );
+                  })
+
+
 
 
                 ])
