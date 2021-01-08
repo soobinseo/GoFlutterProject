@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/soobinseo/goReactCRUD/backend/configs"
+	"github.com/soobinseo/goReactCRUD/backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -18,6 +19,8 @@ func Connect() *gorm.DB{
 	if err != nil {
 		panic(err)
 	}
+
+	db.AutoMigrate(&models.User{}, &models.UserDetail{}, &models.Post{}, &models.Comment{}, &models.Career{}, &models.Education{})
 
 	return db
 }

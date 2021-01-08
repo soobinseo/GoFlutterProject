@@ -24,7 +24,7 @@ class SignUpController extends GetxController {
         barrierDismissible: false);
 
     var body = jsonEncode({
-      "name": nameController.text,
+      "userDetail": {"name": nameController.text},
       "email": emailController.text,
       "password": passwordController.text,
     });

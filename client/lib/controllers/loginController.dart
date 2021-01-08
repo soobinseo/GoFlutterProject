@@ -20,40 +20,19 @@ class LoginController extends GetxController {
   }
 
   void validUpdate() {
-    print(emailController.text.isNotEmpty);
-    print(passwordController.text.isNotEmpty);
     isValid.value = emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
-    print(isValid.value);
   }
 
   void apiLogin() async {
     // loading 보여주기 위한 방식
     Get.dialog(Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
-
     var body = jsonEncode({
       "email": emailController.text,
       "password": passwordController.text,
     });
 
-    print(body);
-
-    try {
-      Response res = await utilProvider.login(body);
-      if (res.statusCode == 200) {
-        Get.back();
-        Get.offNamed('/home');
-      } else {
-//        // TODO:
-        Get.offNamed('/login');
-      }
-
-    } catch(e) {
-      print(e.error);
-    }
-
-
-
+    await utilProvider.login(body);
 
 
   }

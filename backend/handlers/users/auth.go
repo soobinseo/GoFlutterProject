@@ -58,8 +58,6 @@ func SignupHandler (c *gin.Context) {
 
 	var body models.User
 
-	//db.DataBase.AutoMigrate(&models.User{})
-
 	if err := c.ShouldBind(&body); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -93,7 +91,9 @@ func LoginHandler(c *gin.Context) {
 		panic(err)
 	}
 
-	db.DataBase.Where("email = ?", user.Email).First(&dbUser)
+	if r := db.DataBase.Where("email = ?", user.Email).First(&dbUser); r.Error != nil {
+		c.JSON(http.StatusUnauthorized, "")
+	}
 
 	userPass := []byte(user.Password)
 	dbPass := []byte(dbUser.Password)
@@ -101,13 +101,13 @@ func LoginHandler(c *gin.Context) {
 	passErr := bcrypt.CompareHashAndPassword(dbPass, userPass)
 
 	if passErr != nil {
-		c.JSON(http.StatusInternalServerError, passErr.Error())
+		c.JSON(http.StatusUnauthorized, "")
 	}
 
 	jwtToken, err := GenerateJWTToken(&dbUser)
 
 	if err != nil {
-		panic(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
 	c.Header("Last-Modified", time.Now().String())
