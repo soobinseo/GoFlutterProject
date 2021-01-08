@@ -35,6 +35,7 @@ type Career struct {
 }
 
 type Education struct {
+	gorm.Model
 	UserDetailID uint `json:"userDetailId"`
 	University string `json:"university" gorm:"type:varchar(255)"`
 	Major string `json:"major" gorm:"type:varchar(255)"`
