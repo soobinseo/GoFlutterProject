@@ -32,9 +32,9 @@ class SignUpController extends GetxController {
     try {
       Response res = await utilProvider.signUp(body);
       if (res.statusCode == 200) {
-        Response res_login = await utilProvider.login(body);
+        await utilProvider.login(body);
         Get.back();
-        Get.offNamed("/home");
+        Get.offNamed("/userDetail", arguments: nameController.text);
       } else if (res.statusCode == 419){
         //TODO: 중복된 사용자 토글
       } else {

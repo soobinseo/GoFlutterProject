@@ -1,17 +1,21 @@
 package middlewares
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/soobinseo/goReactCRUD/backend/handlers/users"
 	"net/http"
+	"strings"
 )
 
 func AuthJWTMiddleWare(c *gin.Context) {
 
-	token := c.Request.Header.Get("access-token")
-	tknStr := token
+	token := c.Request.Header.Get("Authorization")
+	tknStr := strings.Split(token, " ")[1]
 
+	fmt.Println(token)
+	//fmt.Println(tknStr)
 	if tknStr == "" {
 		c.JSON(http.StatusUnauthorized, "")
 		c.Abort()
@@ -33,5 +37,4 @@ func AuthJWTMiddleWare(c *gin.Context) {
 		c.Set("userId", claims.UserId)
 		c.Next()
 	}
-
 }

@@ -15,8 +15,10 @@ class MyPageController extends GetxController {
     super.onInit();
   }
 
+
+
   pushSettingButton() {
-    Get.toNamed("/setting");
+    Get.toNamed("/userDetail");
   }
 
   @override

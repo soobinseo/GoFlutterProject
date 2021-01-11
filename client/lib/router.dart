@@ -4,6 +4,8 @@ import 'package:client/views/login.dart';
 import 'package:client/views/home.dart';
 import 'package:client/views/setting.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:client/views/userDetail.dart';
+
 
 class Routers {
 
@@ -14,5 +16,6 @@ class Routers {
     GetPage(name: "/login", page: () => LoginView()),
     GetPage(name: "/setting", page: () => SettingView()),
     GetPage(name: "/home", page: () => HomeView()),
+    GetPage(name: "/userDetail", page: () => UserDetailView()),
   ];
 }

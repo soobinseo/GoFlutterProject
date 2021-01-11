@@ -80,7 +80,6 @@ func SignupHandler (c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"userID": body.ID,
 	})
-
 }
 
 func LoginHandler(c *gin.Context) {

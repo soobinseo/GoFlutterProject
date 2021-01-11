@@ -22,8 +22,8 @@ type UserDetail struct {
 	Name string `json:"name" gorm:"not null;type:varchar(255)"`
 	Title string `json:"title" gorm:"type:varchar(255)"`
 	Introduce string `json:"introduce" gorm:"type:varchar(255)"`
-	Careers *[]Career `json:"careers"`
-	Educations *[]Education `json:"educations"`
+	Careers []*Career `json:"careers"`
+	Educations []*Education `json:"educations"`
 	LikePosts	[]*Post `json:"likePosts" gorm:"many2many:likeUser_likePosts"`
 }
 

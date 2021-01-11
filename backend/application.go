@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/soobinseo/goReactCRUD/backend/handlers/profiles"
 	"github.com/soobinseo/goReactCRUD/backend/handlers/users"
 	"github.com/soobinseo/goReactCRUD/backend/middlewares"
 	"log"
@@ -25,27 +24,31 @@ func Application() {
 	}))
 
 	// add handlers
-
-	r_api := r.Group("api/")
-	r_api.Use(middlewares.ParseParamMiddleware)
+	r.POST("signup", users.SignupHandler)
+	r.POST("login", users.LoginHandler)
+	r.POST("refresh", users.RefreshHandler)
+	rApi := r.Group("api/")
+	rApi.Use(middlewares.ParseParamMiddleware)
+	rApi.Use(middlewares.AuthJWTMiddleWare)
 	{
-		r_api.GET("profile", profiles.GetProfilesHandler)
-
-		r_api.POST("profile", profiles.PostProfileHandler)
-		{
-			r_api.GET("profile/:profileId", profiles.GetProfileByIdHandler)
-			r_api.DELETE("profile/:profileId", profiles.DeleteProfileHandler)
-			r_api.PUT("profile/:profileId", profiles.UpdateProfileHandler)
-		}
-
-		r_api.POST("signup", users.SignupHandler)
-		r_api.POST("login", users.LoginHandler)
-		r_api.POST("refresh", users.RefreshHandler)
+		rApi.GET("userDetail", users.GetUserDetailHandler)
+		rApi.POST("updateUserDetail", users.UpdateDetailHandler)
+		rApi.POST("createUserDetail", users.FirstUserDetailHandler)
 	}
 
-	r_auth_api := r_api.Group("auth/")
-	r_auth_api.Use(middlewares.AuthJWTMiddleWare)
-	r_auth_api.GET("test", users.TestHandler)
+	//{
+	//	r_api.GET("profile", profiles.GetProfilesHandler)
+	//
+	//	r_api.POST("profile", profiles.PostProfileHandler)
+	//	{
+	//		r_api.GET("profile/:profileId", profiles.GetProfileByIdHandler)
+	//		r_api.DELETE("profile/:profileId", profiles.DeleteProfileHandler)
+	//		r_api.PUT("profile/:profileId", profiles.UpdateProfileHandler)
+	//	}
+	//
+	//
+	//}
+
 
 
 
